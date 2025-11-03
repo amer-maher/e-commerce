@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import useAuth from '../hooks/useAuth'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { Container, Form, Button, Card } from 'react-bootstrap'
+// @ts-ignore: no type declarations for JS module
+import useAuth from '../hooks/useAuth.js'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState('')
@@ -19,46 +19,20 @@ const Login: React.FC = () => {
 	}
 
 	return (
-		<Container className="py-5">
-			<Card className="mx-auto" style={{ maxWidth: '400px' }}>
-				<Card.Header className="bg-primary text-white">
-					<h4 className="mb-0">Login</h4>
-				</Card.Header>
-				<Card.Body>
-					<Form onSubmit={submit}>
-						<Form.Group className="mb-3">
-							<Form.Label>Email address</Form.Label>
-							<Form.Control
-								type="email"
-								placeholder="Enter email"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								required
-							/>
-						</Form.Group>
-
-						<Form.Group className="mb-3">
-							<Form.Label>Password</Form.Label>
-							<Form.Control
-								type="password"
-								placeholder="Password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								required
-								minLength={6}
-							/>
-						</Form.Group>
-
-						<Button variant="primary" type="submit" className="w-100">
-							Login
-						</Button>
-					</Form>
-				</Card.Body>
-				<Card.Footer className="text-center">
-					Don't have an account? <Link to="/register">Register here</Link>
-				</Card.Footer>
-			</Card>
-		</Container>
+		<main style={{ padding: 20 }}>
+			<h2>Login</h2>
+			<form onSubmit={submit}>
+				<div>
+					<label>Email</label>
+					<input value={email} onChange={(e) => setEmail(e.target.value)} />
+				</div>
+				<div>
+					<label>Password</label>
+					<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+				</div>
+				<button type="submit">Login</button>
+			</form>
+		</main>
 	)
 }
 
