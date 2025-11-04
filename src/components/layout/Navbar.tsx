@@ -7,6 +7,7 @@ const Navbar: React.FC = () => {
 			<NavLink className="nav__link" to="/">Home</NavLink>
 			<NavLink className="nav__link" to="/products">Products</NavLink>
 			<NavLink className="nav__link" to="/cart">Cart</NavLink>
+			<NavLink className="nav__link" to="/register">Register</NavLink>
 			<NavLink className="nav__link" to="/login">Login</NavLink>
 		</nav>
 	)
