@@ -9,8 +9,8 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import NotFound from '../pages/NotFound'
 import ProtectedRoute from './ProtectedRoute'
-import Header from '../components/layout/Header'
-
+import Header from '../components/layout/header/Header'
+import Footer from '../components/layout/footer/Footer'
 const AppRoutes: React.FC = () => {
 	return (
 		<BrowserRouter>
@@ -30,6 +30,7 @@ const AppRoutes: React.FC = () => {
 
 				<Route path="*" element={<NotFound />} />
 			</Routes>
+			<Footer/>
 		</BrowserRouter>
 	)
 }

@@ -1,30 +1,40 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Button from '../common/Button'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 type Product = {
-	id: string
-	name: string
-	price: number
-	rating?: number
-	image?: string
-}
+  id: string;
+  name: string;
+  price: number;
+  rating?: number;
+  image?: string;
+};
 
-const ProductCard: React.FC<{ product: Product; onAddToCart: () => void }> = ({ product, onAddToCart }) => {
-	return (
-		<div className="product-card card">
-			<div className="product-card__image" aria-hidden />
-			<div className="product-card__body">
-				<h3 className="product-card__title">
-					<Link to={`/products/${product.id}`}>{product.name}</Link>
-				</h3>
-				<p className="product-card__price">${product.price.toFixed(2)}</p>
-				<Button variant="primary" onClick={onAddToCart}>Add to Cart</Button>
-			</div>
-		</div>
-	)
-}
+const ProductCard: React.FC<{ product: Product; onAddToCart: () => void }> = ({
+  product,
+  onAddToCart,
+}) => {
+  return (
+    <div className="card product-card shadow-sm h-100">
+      <div className="product-image bg-light d-flex align-items-center justify-content-center">
+        <img
+          src={product.image || 'https://via.placeholder.com/300x200?text=Product'}
+          alt={product.name}
+          className="img-fluid rounded"
+        />
+      </div>
+      <div className="card-body text-center">
+        <h5 className="card-title fw-bold mb-2">
+          <Link to={`/products/${product.id}`} className="text-decoration-none text-dark">
+            {product.name}
+          </Link>
+        </h5>
+        <p className="card-text text-muted mb-3">${product.price.toFixed(2)}</p>
+        <button className="btn custom-btn" onClick={onAddToCart}>
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default ProductCard
-
-
+export default ProductCard;

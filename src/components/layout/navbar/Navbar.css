@@ -1,0 +1,11 @@
+.navbar{
+    background-color: rgb(245, 245, 200);
+}
+.btn-login .btn{
+    background-color: rgb(189, 126, 55);
+   
+}
+.btn-login .btn:hover{
+    background-color: rgb(192, 141, 47);
+     border: rgb(51, 38, 2) 1px solid;
+}
