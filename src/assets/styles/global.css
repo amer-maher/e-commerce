@@ -1,0 +1,81 @@
+/* Global layout and card styles for modern, centered forms */
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', Arial, sans-serif;
+	background: #f7f8fb;
+	color: #222;
+	overflow-x: hidden;
+}
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px;
+}
+.centered-page {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f7f8fb;
+}
+.card {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 6px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+	padding: 32px 28px;
+	max-width: 400px;
+	width: 100%;
+	margin: 0 auto;
+}
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+.form__field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.form__label {
+	font-size: 15px;
+	color: #555;
+}
+.input {
+	height: 44px;
+	padding: 0 12px;
+	border-radius: 8px;
+	border: 1px solid #e5e7eb;
+	background: #f7f8fb;
+	color: #222;
+	font-size: 16px;
+}
+.btn {
+	height: 44px;
+	border-radius: 8px;
+	font-weight: 600;
+	padding: 0 18px;
+	border: none;
+	background: #4f8cff;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.btn:active {
+	background: #335dff;
+}
+.btn[disabled] {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+.btn.ghost {
+	background: #eef2ff;
+	color: #222;
+}
+@media (max-width: 600px) {
+	.card {
+		padding: 18px 8px;
+		max-width: 98vw;
+	}
+}

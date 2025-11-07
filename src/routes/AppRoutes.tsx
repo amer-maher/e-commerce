@@ -1,12 +1,14 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home'
-import Products from '../pages/Products'
+import ProductsPage from '../pages/ProductsPage'
 import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
 import Checkout from '../pages/Checkout'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Receipts from '../pages/Receipts'
+import ReceiptDetails from '../pages/ReceiptDetails'
 import NotFound from '../pages/NotFound'
 import ProtectedRoute from './ProtectedRoute'
 import Header from '../components/layout/header/Header'
@@ -17,7 +19,7 @@ const AppRoutes: React.FC = () => {
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/products" element={<Products />} />
+				<Route path="/products" element={<ProductsPage />} />
 				<Route path="/products/:id" element={<ProductDetails />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
@@ -26,6 +28,8 @@ const AppRoutes: React.FC = () => {
 				<Route element={<ProtectedRoute />}>
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/checkout" element={<Checkout />} />
+					<Route path="/receipts" element={<Receipts />} />
+					<Route path="/receipts/:id" element={<ReceiptDetails />} />
 				</Route>
 
 				<Route path="*" element={<NotFound />} />

@@ -25,8 +25,8 @@ const LoginForm: React.FC = () => {
     try {
       setLoading(true)
       // assume auth.login accepts (username, password)
-      await auth.login(username, password)
-      navigate(from, { replace: true })
+  await auth.login(username, password)
+  navigate(from, { replace: true })
     } catch (err: any) {
       setError(err?.message || 'Failed to login')
     } finally {
@@ -60,6 +60,26 @@ const LoginForm: React.FC = () => {
         <Button type="button" variant="ghost" onClick={() => { setUsername(''); setPassword('') }}>
           Clear
         </Button>
+      </div>
+      <div style={{ marginTop: 12, display: 'flex', justifyContent: 'center' }}>
+        <div style={{ background: '#a67c52', borderRadius: 8, padding: '8px 32px', minWidth: 320, display: 'flex', justifyContent: 'center' }}>
+          <button
+            type="button"
+            className="text-muted"
+            style={{
+              fontSize: '0.95em',
+              textAlign: 'center',
+              width: '100%',
+              background: 'transparent',
+              border: 'none',
+              padding: 0,
+              color: 'inherit'
+            }}
+            onClick={() => navigate('/register')}
+          >
+            Don't have an account? <span style={{ textDecoration: 'underline' }}>Sign up</span>
+          </button>
+        </div>
       </div>
     </form>
   )
