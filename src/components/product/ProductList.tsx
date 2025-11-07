@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
-import useCart from '../../hooks/useCart';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 // ...existing code...
@@ -19,7 +18,6 @@ type Product = {
 };
 
 const ProductList: React.FC = () => {
-  const { addItem } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
