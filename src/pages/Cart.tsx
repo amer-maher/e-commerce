@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../utils/api';
 
 const Cart: React.FC = () => {
 	const { user } = useAuth();
@@ -14,7 +15,7 @@ const Cart: React.FC = () => {
 			navigate('/login', { state: { from: '/cart' } });
 			return;
 		}
-		fetch(`/api/cart/${user._id}`)
+		apiFetch(`/api/cart/${user._id}`)
 			.then(res => res.json())
 			.then(data => {
 				if (data.cart) {

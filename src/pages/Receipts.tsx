@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../utils/api';
 
 type Cart = {
 	_id: string;
@@ -31,7 +32,7 @@ const Receipts: React.FC = () => {
 		if (!user?._id) return;
 		setLoading(true);
 		try {
-			const res = await fetch(`/api/cart/receipts/${user._id}`);
+			const res = await apiFetch(`/api/cart/receipts/${user._id}`);
 			const data = await res.json();
 			if (data.carts) {
 				setReceipts(data.carts);

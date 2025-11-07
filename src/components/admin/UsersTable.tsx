@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { apiFetch } from '../../utils/api';
 
 interface User {
   _id: string;
@@ -20,7 +21,7 @@ const UsersTable: React.FC = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/admin/users');
+      const res = await apiFetch('/api/admin/users');
       const data = await res.json();
       if (data.users) {
         setUsers(data.users);
@@ -44,7 +45,7 @@ const UsersTable: React.FC = () => {
     if (!editingUser) return;
     
     try {
-      const res = await fetch(`/api/admin/users/${editingUser._id}`, {
+      const res = await apiFetch(`/api/admin/users/${editingUser._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm)
@@ -68,7 +69,7 @@ const UsersTable: React.FC = () => {
     if (!confirm(`Are you sure you want to delete user "${username}"?`)) return;
     
     try {
-      const res = await fetch(`/api/admin/users/${userId}`, {
+      const res = await apiFetch(`/api/admin/users/${userId}`, {
         method: 'DELETE'
       });
       const data = await res.json();

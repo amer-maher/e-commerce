@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { apiFetch } from '../../utils/api';
 
 interface SalesData {
   date: string;
@@ -21,7 +22,7 @@ const SalesChart: React.FC = () => {
   const fetchSalesData = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/admin/sales-analytics');
+      const res = await apiFetch('/api/admin/sales-analytics');
       const data = await res.json();
       if (data.salesData) {
         setSalesData(data.salesData);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../../utils/api';
 // ...existing code...
 
 // ...existing code...
@@ -27,7 +28,7 @@ const ProductList: React.FC = () => {
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    fetch('/api/products')
+    apiFetch('/api/products')
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.products || []);
@@ -106,7 +107,7 @@ const ProductList: React.FC = () => {
                     quantity: 1
                   };
                   console.log('Add to cart request:', requestBody);
-                  const res = await fetch('/api/cart/add', {
+                  const res = await apiFetch('/api/cart/add', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)

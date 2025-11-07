@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { apiFetch } from '../../utils/api';
 
 interface Product {
   _id: string;
@@ -30,7 +31,7 @@ const ProductsTable: React.FC = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/products');
+      const res = await apiFetch('/api/products');
       const data = await res.json();
       if (data.products) {
         setProducts(data.products);
@@ -77,7 +78,7 @@ const ProductsTable: React.FC = () => {
       
       const method = isCreating ? 'POST' : 'PUT';
       
-      const res = await fetch(url, {
+      const res = await apiFetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm)
@@ -102,7 +103,7 @@ const ProductsTable: React.FC = () => {
     if (!confirm(`Are you sure you want to delete product "${productName}"?`)) return;
     
     try {
-      const res = await fetch(`/api/admin/products/${productId}`, {
+      const res = await apiFetch(`/api/admin/products/${productId}`, {
         method: 'DELETE'
       });
       const data = await res.json();

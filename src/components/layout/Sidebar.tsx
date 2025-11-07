@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { createPortal } from 'react-dom';
+import { apiFetch } from '../../utils/api';
 
 const CartOffcanvas: React.FC = () => {
   const { user } = useAuth();
@@ -12,7 +13,7 @@ const CartOffcanvas: React.FC = () => {
     if (!user?._id) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/cart/${user._id}`);
+      const res = await apiFetch(`/api/cart/${user._id}`);
       const data = await res.json();
       if (data.cart) {
         setCart(data.cart);
@@ -27,7 +28,7 @@ const CartOffcanvas: React.FC = () => {
   const handleCheckout = async () => {
     if (!user?._id || !cart) return;
     try {
-      const res = await fetch(`/api/cart/checkout/${user._id}`, {
+      const res = await apiFetch(`/api/cart/checkout/${user._id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
@@ -53,7 +54,7 @@ const CartOffcanvas: React.FC = () => {
     if (!confirm('Remove this item from cart?')) return;
     
     try {
-      const res = await fetch(`/api/cart/item/${user._id}/${itemId}`, {
+      const res = await apiFetch(`/api/cart/item/${user._id}/${itemId}`, {
         method: 'DELETE'
       });
       const data = await res.json();
