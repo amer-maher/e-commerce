@@ -3,12 +3,28 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://amroqadadha_db_user:oNkq8IPUUFS1InvF@cluster0.l5ge8z6.mongodb.net/ecommerce');
+// MongoDB connection
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  console.error('❌ MONGO_URI environment variable is not set. Please create a .env file with MONGO_URI.');
+  process.exit(1);
+}
+
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch((err) => {
+    console.error('❌ MongoDB connection error:', err);
+    process.exit(1);
+  });
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
