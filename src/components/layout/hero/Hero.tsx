@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hero.css';
-import heroImage from '../../../assets/images/hero.png';
+// Use external image link for hero
 import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
@@ -25,11 +25,8 @@ const Hero: React.FC = () => {
 
             {/* Buttons */}
             <div className="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
-              <Link to="/products" className="btn btn-lg">
+              <Link to="/products" className="btn btn-lg btn-primary">
                 Browse Products
-              </Link>
-              <Link to="/login" className="btn  btn-lg">
-                View Cart
               </Link>
             </div>
           </div>
@@ -37,9 +34,10 @@ const Hero: React.FC = () => {
           {/* Right Side - Image */}
           <div className="col-md-6 text-center">
             <img
-              src={heroImage}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPDN4mLxgj0SEnMi5S-nLDNkBgQ-OVtCygEw&s"
               className="img-fluid rounded shadow"
               alt="E-commerce promotion"
+              style={{ maxWidth: '100%', height: 'auto' }}
             />
           </div>
         </div>

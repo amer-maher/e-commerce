@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Sidebar from '../Sidebar';
+import useAuth from '../../../hooks/useAuth';
 import './Navbar.css';
+
 const Navbar: React.FC = () => {
+  const { user, logout } = useAuth();
   return (
     <nav className="navbar navbar-expand-lg  shadow-sm">
       <div className="container-fluid">
@@ -38,17 +41,32 @@ const Navbar: React.FC = () => {
                 Products
               </NavLink>
             </li>
+            {user && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/receipts">
+                  Receipts
+                </NavLink>
+              </li>
+            )}
           </ul>
 
           {/* Right Buttons + Cart */}
           <div className="d-flex btn-login flex-column flex-lg-row align-items-lg-center gap-2 mt-3 mt-lg-0">
-            <NavLink to="/login" className="btn btn-sm">
-              Login
-            </NavLink>
-            <NavLink to="/signup" className="btn  text-dark fw-semibold btn-sm">
-              Sign Up
-            </NavLink>
-
+            {user ? (
+              <>
+                <span className="fw-semibold me-2">Hello {user.username}</span>
+                <button className="btn btn-danger btn-sm" onClick={logout}>Logout</button>
+              </>
+            ) : (
+              <>
+                <NavLink to="/login" className="btn btn-sm">
+                  Login
+                </NavLink>
+                <NavLink to="/register" className="btn  text-dark fw-semibold btn-sm">
+                  Sign Up
+                </NavLink>
+              </>
+            )}
             {/* Sidebar (Cart) */}
             <Sidebar />
           </div>

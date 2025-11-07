@@ -15,22 +15,21 @@ const SignupForm: React.FC = () => {
   const navigate = useNavigate()
 
   const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
+    e.preventDefault();
+    setError(null);
     if (!email || !username || !password) {
-      setError('Please fill all fields')
-      return
+      setError('Please fill all fields');
+      return;
     }
     try {
-      setLoading(true)
-      // auth.register currently expects (email, password)
-      await auth.register(email, password)
-      // username can be sent to backend later if needed
-      navigate('/')
+      setLoading(true);
+      await auth.register(email, username, password);
+      // Registration successful, user is logged in
+      navigate('/');
     } catch (err: any) {
-      setError(err?.message || 'Failed to register')
+      setError(err?.message || 'Registration failed');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -58,10 +57,30 @@ const SignupForm: React.FC = () => {
 
       {error && <div style={{ color: 'var(--primary)', fontWeight: 600 }}>{error}</div>}
 
-      <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>
-        <Button type="submit" variant="primary" disabled={loading}>{loading ? 'Creating...' : 'Create account'}</Button>
-        <Button type="button" variant="ghost" onClick={() => { setEmail(''); setUsername(''); setPassword('') }}>Clear</Button>
-      </div>
+        <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>
+          <Button type="submit" variant="primary" disabled={loading}>{loading ? 'Creating account...' : 'Sign up'}</Button>
+          <Button type="button" variant="ghost" onClick={() => { setEmail(''); setUsername(''); setPassword('') }}>Clear</Button>
+        </div>
+        <div style={{ marginTop: 12, display: 'flex', justifyContent: 'center' }}>
+          <div style={{ background: '#a67c52', borderRadius: 8, padding: '8px 32px', minWidth: 320, display: 'flex', justifyContent: 'center' }}>
+            <button
+              type="button"
+              className="text-muted"
+              style={{
+                fontSize: '0.95em',
+                textAlign: 'center',
+                width: '100%',
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+                color: 'inherit'
+              }}
+              onClick={() => navigate('/login')}
+            >
+              Already have an account? <span style={{ textDecoration: 'underline' }}>Log in</span>
+            </button>
+          </div>
+        </div>
     </form>
   )
 }
