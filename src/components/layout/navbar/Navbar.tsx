@@ -42,11 +42,21 @@ const Navbar: React.FC = () => {
               </NavLink>
             </li>
             {user && (
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/receipts">
-                  Receipts
-                </NavLink>
-              </li>
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/receipts">
+                    Receipts
+                  </NavLink>
+                </li>
+                {user.isAdmin && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/admin">
+                      <i className="bi bi-gear-fill me-1"></i>
+                      Admin
+                    </NavLink>
+                  </li>
+                )}
+              </>
             )}
           </ul>
 

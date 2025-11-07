@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 
-type User = { _id: string; email: string; username: string } | null
+type User = { _id: string; email: string; username: string; isAdmin?: boolean } | null
 
 type AuthContextType = {
 	user: User

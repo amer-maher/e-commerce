@@ -9,8 +9,10 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Receipts from '../pages/Receipts'
 import ReceiptDetails from '../pages/ReceiptDetails'
+import AdminDashboard from '../pages/AdminDashboard'
 import NotFound from '../pages/NotFound'
 import ProtectedRoute from './ProtectedRoute'
+import AdminRoute from './AdminRoute'
 import Header from '../components/layout/header/Header'
 import Footer from '../components/layout/footer/Footer'
 const AppRoutes: React.FC = () => {
@@ -30,6 +32,11 @@ const AppRoutes: React.FC = () => {
 					<Route path="/checkout" element={<Checkout />} />
 					<Route path="/receipts" element={<Receipts />} />
 					<Route path="/receipts/:id" element={<ReceiptDetails />} />
+				</Route>
+
+				{/* Admin only routes */}
+				<Route element={<AdminRoute />}>
+					<Route path="/admin" element={<AdminDashboard />} />
 				</Route>
 
 				<Route path="*" element={<NotFound />} />

@@ -1,62 +1,44 @@
 [
   {
-    "productName": "Classic Blue Jeans",
-    "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
-    "category": "Jeans",
-    "size": "32"
+    "user": { "$oid": "690e085460974fea1bc860d6" },
+    "items": [],
+    "status": "completed",
+    "totalPrice": 100,
+    "submissionDate": { "$date": "2025-11-01T10:00:00Z" }
   },
   {
-    "productName": "White Cotton T-Shirt",
-    "image": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
-    "category": "T-Shirts",
-    "size": "M"
+    "user": { "$oid": "690e085460974fea1bc860d6" },
+    "items": [],
+    "status": "completed",
+    "totalPrice": 120,
+    "submissionDate": { "$date": "2025-11-02T11:30:00Z" }
   },
   {
-    "productName": "Black Leather Jacket",
-    "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80",
-    "category": "Jackets",
-    "size": "L"
+    "user": { "$oid": "690e085460974fea1bc860d6" },
+    "items": [],
+    "status": "completed",
+    "totalPrice": 140,
+    "submissionDate": { "$date": "2025-11-03T14:45:00Z" }
   },
   {
-    "productName": "Red Summer Dress",
-    "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80",
-    "category": "Dresses",
-    "size": "S"
+    "user": { "$oid": "690e085460974fea1bc860d6" },
+    "items": [],
+    "status": "completed",
+    "totalPrice": 160,
+    "submissionDate": { "$date": "2025-11-04T09:20:00Z" }
   },
   {
-    "productName": "Grey Hoodie",
-    "image": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=800&q=80",
-    "category": "Hoodies",
-    "size": "XL"
+    "user": { "$oid": "690e085460974fea1bc860d6" },
+    "items": [],
+    "status": "completed",
+    "totalPrice": 180,
+    "submissionDate": { "$date": "2025-11-05T16:10:00Z" }
   },
   {
-    "productName": "Green Chinos",
-    "image": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
-    "category": "Pants",
-    "size": "34"
-  },
-  {
-    "productName": "Striped Polo Shirt",
-    "image": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80",
-    "category": "Polos",
-    "size": "L"
-  },
-  {
-    "productName": "Denim Skirt",
-    "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
-    "category": "Skirts",
-    "size": "M"
-  },
-  {
-    "productName": "Yellow Raincoat",
-    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    "category": "Coats",
-    "size": "L"
-  },
-  {
-    "productName": "Blue Checked Shirt",
-    "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
-    "category": "Shirts",
-    "size": "M"
+    "user": { "$oid": "690e085460974fea1bc860d6" },
+    "items": [],
+    "status": "completed",
+    "totalPrice": 200,
+    "submissionDate": { "$date": "2025-11-06T18:40:00Z" }
   }
 ]

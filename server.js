@@ -29,7 +29,8 @@ mongoose.connect(MONGO_URI)
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false }
 });
 
 const User = mongoose.model('User', userSchema, 'users');
@@ -58,7 +59,7 @@ app.post('/api/register', async (req, res) => {
     await user.save();
     console.log('User saved successfully:', { email, username });
     // Automatically log in after registration
-  return res.status(201).json({ message: 'User registered', user: { _id: user._id, email, username } });
+  return res.status(201).json({ message: 'User registered', user: { _id: user._id, email, username, isAdmin: user.isAdmin } });
   } catch (err) {
     console.error('Registration error:', err);
     if (err && err.name === 'MongoServerError' && err.code === 11000) {
@@ -77,7 +78,7 @@ app.post('/api/login', async (req, res) => {
     if (!user) return res.status(401).json({ error: 'Invalid credentials' });
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
-  res.status(200).json({ message: 'Login successful', user: { _id: user._id, email: user.email, username: user.username } });
+  res.status(200).json({ message: 'Login successful', user: { _id: user._id, email: user.email, username: user.username, isAdmin: user.isAdmin } });
   } catch (err) {
     res.status(500).json({ error: 'Login failed' });
   }
@@ -107,8 +108,9 @@ const cartSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CartItem' }],
   status: { type: String, enum: ['open', 'completed'], default: 'open' },
-  totalPrice: { type: Number, required: true }
-});
+  totalPrice: { type: Number, required: true },
+  submissionDate: { type: Date }
+}, { timestamps: true });
 const Cart = mongoose.model('Cart', cartSchema, 'carts');
 
 // Create or get open cart for user
@@ -175,6 +177,7 @@ app.post('/api/cart/checkout/:userId', async (req, res) => {
     const cart = await Cart.findOne({ user: req.params.userId, status: 'open' });
     if (!cart) return res.status(404).json({ error: 'No open cart found' });
     cart.status = 'completed';
+    cart.submissionDate = new Date();
     await cart.save();
     res.json({ message: 'Checkout successful!', cart });
   } catch (err) {
@@ -275,6 +278,121 @@ app.get('/api/products/:id', async (req, res) => {
   } catch (err) {
     console.error('Error fetching product:', err);
     res.status(500).json({ error: 'Failed to fetch product' });
+  }
+});
+
+// ============ ADMIN ENDPOINTS ============
+
+// Get sales analytics (total sales grouped by date)
+app.get('/api/admin/sales-analytics', async (req, res) => {
+  try {
+    const salesData = await Cart.aggregate([
+      { $match: { status: 'completed', submissionDate: { $exists: true } } },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$submissionDate' }
+          },
+          totalSales: { $sum: '$totalPrice' },
+          orderCount: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } },
+      {
+        $project: {
+          date: '$_id',
+          totalSales: 1,
+          orderCount: 1,
+          _id: 0
+        }
+      }
+    ]);
+    res.json({ salesData });
+  } catch (err) {
+    console.error('Error fetching sales analytics:', err);
+    res.status(500).json({ error: 'Failed to fetch sales analytics' });
+  }
+});
+
+// Get all users (admin)
+app.get('/api/admin/users', async (req, res) => {
+  try {
+    const users = await User.find({}).select('-password');
+    res.json({ users });
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// Update user (admin)
+app.put('/api/admin/users/:id', async (req, res) => {
+  try {
+    const { email, username } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { email, username },
+      { new: true, runValidators: true }
+    ).select('-password');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json({ message: 'User updated', user });
+  } catch (err) {
+    console.error('Error updating user:', err);
+    res.status(500).json({ error: 'Failed to update user' });
+  }
+});
+
+// Delete user (admin)
+app.delete('/api/admin/users/:id', async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json({ message: 'User deleted' });
+  } catch (err) {
+    console.error('Error deleting user:', err);
+    res.status(500).json({ error: 'Failed to delete user' });
+  }
+});
+
+// Update product (admin)
+app.put('/api/admin/products/:id', async (req, res) => {
+  try {
+    const { productName, image, category, size, price } = req.body;
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { productName, image, category, size, price },
+      { new: true, runValidators: true }
+    );
+    if (!product) return res.status(404).json({ error: 'Product not found' });
+    res.json({ message: 'Product updated', product });
+  } catch (err) {
+    console.error('Error updating product:', err);
+    res.status(500).json({ error: 'Failed to update product' });
+  }
+});
+
+// Delete product (admin)
+app.delete('/api/admin/products/:id', async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) return res.status(404).json({ error: 'Product not found' });
+    res.json({ message: 'Product deleted' });
+  } catch (err) {
+    console.error('Error deleting product:', err);
+    res.status(500).json({ error: 'Failed to delete product' });
+  }
+});
+
+// Create product (admin)
+app.post('/api/admin/products', async (req, res) => {
+  try {
+    const { productName, image, category, size, price } = req.body;
+    const product = new Product({ productName, image, category, size, price });
+    await product.save();
+    res.status(201).json({ message: 'Product created', product });
+  } catch (err) {
+    console.error('Error creating product:', err);
+    res.status(500).json({ error: 'Failed to create product' });
   }
 });
 
