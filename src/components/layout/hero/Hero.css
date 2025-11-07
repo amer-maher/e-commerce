@@ -1,0 +1,18 @@
+.hero{
+    background-color: beige;
+}
+
+.btn{
+    background-color: rgb(189, 126, 55);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.btn:hover{
+    background-color: rgb(192, 141, 47);
+    border: rgb(51, 38, 2) 1px solid;
+}

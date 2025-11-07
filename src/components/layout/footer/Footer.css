@@ -1,0 +1,19 @@
+.bg-beige {
+  background-color: beige;
+}
+
+.text-body-secondary {
+  color: rgb(51, 38, 2) !important;
+}
+
+.nav-link {
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: rgb(189, 126, 55) !important;
+}
+
+.border-top {
+  border-top: 2px solid rgb(189, 126, 55) !important;
+}
